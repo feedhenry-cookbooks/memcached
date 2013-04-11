@@ -1,10 +1,10 @@
-# CHANGELOG for c_memcached
+# CHANGELOG for memcached
 
-This file is used to list changes made in each version of c_memcached.
+This file is used to list changes made in each version of memcached.
 
 ## 0.1.0:
 
-* Initial release of c_memcached
+* Initial release of memcached
 
 - - - 
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
