@@ -28,10 +28,11 @@ cookbook_file "/tmp/memcached_1.2.8-1_amd64.deb" do
   mode "0644"
 end
 
-package "memcached_1.2.8-1_amd64" do
+package "memcached" do
   action :install
   source "/tmp/memcached_1.2.8-1_amd64.deb"
   provider Chef::Provider::Package::Dpkg
+  not_if 'dpkg -s memcached | grep "Version: 1.2.8-1"'
 end
 
 service "memcached" do
@@ -46,11 +47,11 @@ template "/etc/memcached.conf" do
   group "root"
   mode "0644"
   variables(
-    :verbosity => node[:memcached][:verbosity],
-    :listen => node[:memcached][:listen],
-    :user => node[:account][:daemon][:user],
-    :port => node[:memcached][:port],
-    :memory => node[:memcached][:memory]
+      :verbosity => node[:memcached][:verbosity],
+      :listen => node[:memcached][:listen],
+      :user => node[:account][:daemon][:user],
+      :port => node[:memcached][:port],
+      :memory => node[:memcached][:memory]
   )
   notifies :restart, resources(:service => "memcached"), :immediately
 end
@@ -66,4 +67,5 @@ script "enable and hold memcached" do
     dpkg --get-selections memcached
     aptitude hold memcached -y
   EOH
+  not_if 'grep ENABLE_MEMCACHED=yes /etc/default/memcached'
 end
