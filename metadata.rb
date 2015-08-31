@@ -1,3 +1,4 @@
+name             "memcached"
 maintainer       "FeedHenry"
 maintainer_email "support@feedhenry.com"
 license           'Apache 2.0'
